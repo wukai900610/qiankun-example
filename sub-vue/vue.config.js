@@ -16,6 +16,12 @@ module.exports = {
     port: process.env.VUE_APP_PORT,
     headers: {
       'Access-Control-Allow-Origin': '*'
+    },
+    proxy: {
+      '/api': {
+        target: 'https://zh.dev.p.gfox.ltd',
+        secure: false,
+      }
     }
   }
 }

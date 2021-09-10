@@ -6,5 +6,16 @@ module.exports = {
         args[0].title = 'qiankun-example'
         return args
       })
+  },
+  devServer:{
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxy: {
+      '/api': {
+        target: 'https://zh.dev.p.gfox.ltd',
+        secure: false,
+      },
+    }
   }
 }
