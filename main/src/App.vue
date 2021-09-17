@@ -3,8 +3,9 @@
     <div class="layout-header">
       <div class="logo">QIANKUN-EXAMPLE</div>
       <ul class="sub-apps">
+        <li @click="push('/home')" v-if="state.user.auth">home</li>
         <li @click="push('/about')">about</li>
-        <li @click="push('/login')">login</li>
+        <li @click="push('/login')" v-if="!state.user.auth">login</li>
         <li v-for="item in microApps" :class="{active: item.activeRule === current}" :key="item.name" @click="goto(item)">{{ item.name }}</li>
       </ul>
       <div class="userinfo">主应用的state：{{ JSON.stringify(state) }}</div>

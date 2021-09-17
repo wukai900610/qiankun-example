@@ -1,19 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: '/about'
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    meta: {
+      auth:true
+    },
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/about',
     name: 'About',
     meta: {
-      base:true
     },
     component: () => import('../views/About.vue')
   },
@@ -21,7 +29,6 @@ const routes = [
     path: '/Login',
     name: 'Login',
     meta: {
-      base:true
     },
     component: () => import('../views/Login.vue')
   }
@@ -33,13 +40,45 @@ const router = new VueRouter({
   routes
 })
 
+
+function isLogin(user){
+  return Boolean(user && user.auth)
+}
 router.beforeEach((to, from, next) => {
-  // console.log('beforeEach');
-  // if(to.meta.base){
-    NProgress.start()
-  // }
-  next()
+  let state = store.getGlobalState()
+  NProgress.start()
+
+  if (to.meta.auth) {
+    if (isLogin(state.user)) {
+        if (to.name == 'Login' || to.name == 'Register') {
+            next({
+                path: '/'
+            })
+        } else {
+            next()
+        }
+    } else {
+        next({
+            name: 'Login'
+        })
+    }
+  } else {
+      if (isLogin(state.user)) {
+          if (to.name == 'Login' || to.name == 'Register') {
+              next({
+                  path: '/'
+              })
+          } else {
+              next()
+          }
+      } else {
+          next()
+      }
+  }
+
+  // next()
 })
+
 router.afterEach((to, from) => {
   // console.log('afterEach');
   NProgress.done()
