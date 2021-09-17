@@ -13,7 +13,8 @@
     "common": "file:../common",
     "nprogress": "^0.2.0",
     "qiankun": "^2.0.22",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

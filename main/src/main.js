@@ -3,11 +3,13 @@ import App from './App.vue'
 import { registerMicroApps, start, setDefaultMountApp } from 'qiankun'
 import microApps from './micro-app'
 import 'nprogress/nprogress.css'
+import router from './router'
 // import { api } from 'common'
 // api.xx()
 Vue.config.productionTip = false
 
 const instance = new Vue({
+  router,
   render: h => h(App)
 }).$mount('#app')
 
@@ -47,5 +49,5 @@ registerMicroApps(apps, {
     }
   ]
 })
-setDefaultMountApp('/sub-vue')
+// setDefaultMountApp('/sub-vue')
 start()
