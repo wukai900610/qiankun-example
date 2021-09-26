@@ -1,4 +1,3 @@
-
 /**
  * 
  * @param {vuex实例} store 
