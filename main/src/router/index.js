@@ -45,9 +45,9 @@ function isLogin (user) {
   return Boolean(user && user.auth)
 }
 router.beforeEach((to, from, next) => {
-  console.log('beforeEach')
-  console.log(to)
-  console.log(from)
+  // console.log('beforeEach')
+  // console.log(to)
+  // console.log(from)
   const state = store.getGlobalState()
   NProgress.start()
 
@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  console.log('afterEach')
+  // console.log('afterEach')
   NProgress.done()
 })
 
