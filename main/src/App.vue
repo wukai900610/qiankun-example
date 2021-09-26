@@ -3,10 +3,9 @@
     <div class="layout-header">
       <div class="logo">QIANKUN-EXAMPLE</div>
       <ul class="sub-apps">
-        <li @click="push('/home')" v-if="state.user.auth">home</li>
-        <li @click="push('/about')">about</li>
-        <li @click="push('/login')" v-if="!state.user.auth">login</li>
-        <li v-for="item in microApps" :class="{active: item.activeRule === current}" :key="item.name" @click="goto(item)">{{ item.name }}</li>
+        <li @click="push('/home')">home</li>
+        <li @click="push('/about')" v-if="!state.user.auth">about</li>
+        <li v-for="item in microApps" :key="item.name" @click="goto(item)">{{ item.name }}</li>
       </ul>
       <div class="userinfo">主应用的state：{{ JSON.stringify(state) }}</div>
     </div>
@@ -24,17 +23,12 @@ export default {
   data () {
     return {
       isLoading: true,
-      microApps,
-      current: '/sub-vue/'
+      microApps
+      // current: '/sub-vue/'
     }
   },
   created () {
-    this.bindCurrent()
-
-    // 本地路由
-    // if(this.$route.fullPath != '/'){
-    //   NProgress.start()
-    // }
+    // this.bindCurrent()
   },
   mounted () {
     this.listenRouterChange()
@@ -47,17 +41,6 @@ export default {
       // 返回所有的state则不需添加参数
       return store.getGlobalState()
     }
-  },
-  watch: {
-    // isLoading (val) {
-    //   if (val) {
-    //     // NProgress.start()
-    //   } else {
-    //     this.$nextTick(() => {
-    //       // NProgress.done()
-    //     })
-    //   }
-    // }
   },
   components: {},
   methods: {

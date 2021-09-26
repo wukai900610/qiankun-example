@@ -24,30 +24,30 @@ function loader (loading) {
 // 给子应用配置加上loader方法
 const apps = microApps.map(item => {
   return {
-    ...item,
-    loader
+    ...item
+    // loader
   }
 })
 
 registerMicroApps(apps, {
-  beforeLoad: app => {
-    console.log('before load app.name====>>>>>', app.name)
-  },
-  beforeMount: [
-    app => {
-      console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name)
-    }
-  ],
-  afterMount: [
-    app => {
-      console.log('[LifeCycle] after mount %c%s', 'color: green;', app.name)
-    }
-  ],
-  afterUnmount: [
-    app => {
-      console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name)
-    }
-  ]
+  // beforeLoad: app => {
+  //   console.log('before load app.name====>>>>>', app.name)
+  // },
+  // beforeMount: [
+  //   app => {
+  //     console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name)
+  //   }
+  // ],
+  // afterMount: [
+  //   app => {
+  //     console.log('[LifeCycle] after mount %c%s', 'color: green;', app.name)
+  //   }
+  // ],
+  // afterUnmount: [
+  //   app => {
+  //     console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name)
+  //   }
+  // ]
 })
 // setDefaultMountApp('/sub-vue')
 start()

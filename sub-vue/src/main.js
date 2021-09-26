@@ -17,6 +17,57 @@ function render (props = {}) {
     routes
   })
 
+  function isLogin (user) {
+    return Boolean(user && user.auth)
+  }
+
+  router.beforeEach((to, from, next) => {
+    console.log('------------------child------------------')
+    // console.log(to);
+    // NProgress.start()
+
+    if (isLogin(store.state.global.user)) {
+      next()
+    } else {
+      history.pushState(null, '/', '/login')
+    }
+
+    // if (to.meta.auth) {
+    //   if (isLogin(state.user)) {
+    //       if (to.name == 'Login' || to.name == 'Register') {
+    //           next({
+    //               path: '/'
+    //           })
+    //       } else {
+    //           next()
+    //       }
+    //   } else {
+    //       next({
+    //           name: 'Login'
+    //       })
+    //   }
+    // } else {
+    //     if (isLogin(state.user)) {
+    //         if (to.name == 'Login' || to.name == 'Register') {
+    //             next({
+    //                 path: '/'
+    //             })
+    //         } else {
+    //             next()
+    //         }
+    //     } else {
+    //         next()
+    //     }
+    // }
+
+    // next()
+  })
+
+  // router.afterEach((to, from) => {
+  //   // console.log('afterEach');
+  //   // NProgress.done()
+  // })
+
   instance = new Vue({
     router,
     store,

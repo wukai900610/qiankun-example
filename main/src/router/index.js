@@ -14,7 +14,7 @@ const routes = [
     path: '/home',
     name: 'Home',
     meta: {
-      auth:true
+      // auth: true
     },
     component: () => import('../views/Home.vue')
   },
@@ -22,11 +22,12 @@ const routes = [
     path: '/about',
     name: 'About',
     meta: {
+      auth: true
     },
     component: () => import('../views/About.vue')
   },
   {
-    path: '/Login',
+    path: '/login',
     name: 'Login',
     meta: {
     },
@@ -40,52 +41,62 @@ const router = new VueRouter({
   routes
 })
 
-
-function isLogin(user){
+function isLogin (user) {
   return Boolean(user && user.auth)
 }
 router.beforeEach((to, from, next) => {
-  let state = store.getGlobalState()
+  console.log('beforeEach')
+  console.log(to)
+  console.log(from)
+  const state = store.getGlobalState()
   NProgress.start()
 
   if (to.meta.auth) {
     if (isLogin(state.user)) {
-        if (to.name == 'Login' || to.name == 'Register') {
-            next({
-                path: '/'
-            })
-        } else {
-            next()
-        }
-    } else {
+      if (to.name == 'Login' || to.name == 'Register') {
         next({
-            name: 'Login'
+          path: '/'
         })
+      } else {
+        next()
+      }
+    } else {
+      next({
+        name: 'Login'
+      })
+      if (from.path == '/login') {
+        NProgress.done()
+        next(false)
+      } else {
+        next({
+          name: 'Login'
+        })
+      }
     }
   } else {
-      if (isLogin(state.user)) {
-          if (to.name == 'Login' || to.name == 'Register') {
-              next({
-                  path: '/'
-              })
-          } else {
-              next()
-          }
+    if (isLogin(state.user)) {
+      if (to.name == 'Login' || to.name == 'Register') {
+        next({
+          path: '/'
+        })
       } else {
-          next()
+        next()
       }
+    } else {
+      next()
+    }
   }
 
   // next()
 })
 
 router.afterEach((to, from) => {
-  // console.log('afterEach');
+  console.log('afterEach')
   NProgress.done()
 })
 
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location, onResolve, onReject) {
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
   return originalPush.call(this, location).catch(err => err)
 }

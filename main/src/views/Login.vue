@@ -6,23 +6,24 @@
 
 <script>
 import store from '@/store'
+
 export default {
-  data(){
+  data () {
     return {}
   },
-  // computed: {
-  //   // 通过global获取user的信息
-  //   ...mapState('global', {
-  //     user: state => state.user
-  //   })
-  // },
   methods: {
-    login() {
-      // console.log(store);
-      store.setGlobalState({
-        user: { name: '李四' + Math.round(Math.random() * 100),auth:true }
+    login () {
+      // console.log(store.getGlobalState());
+
+      // store.setGlobalState({
+      //   user: { name: '李四' + Math.round(Math.random() * 100),auth:true }
+      // })
+      store.commit('global/setGlobalState', { user: { name: '李四' + Math.round(Math.random() * 100), auth: true } })
+
+      this.$router.push({
+        name: 'Home'
       })
     }
-  },
+  }
 }
 </script>
