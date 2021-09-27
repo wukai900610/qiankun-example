@@ -14,7 +14,6 @@ const routes = [
     path: '/home',
     name: 'Home',
     meta: {
-      // auth: true
     },
     component: () => import('../views/Home.vue')
   },
@@ -32,6 +31,13 @@ const routes = [
     meta: {
     },
     component: () => import('../views/Login.vue')
+  // },
+  // {
+  //   path: '/*',
+  //   name: 'NotFound',
+  //   meta: {
+  //   },
+  //   component: () => import('../views/NotFound.vue')
   }
 ]
 

@@ -4,10 +4,26 @@
       <div class="logo">QIANKUN-EXAMPLE</div>
       <ul class="sub-apps">
         <li @click="push('/home')">home</li>
-        <li @click="push('/about')" v-if="!state.user.auth">about</li>
+        <li @click="push('/about')">about</li>
         <li v-for="item in microApps" :key="item.name" @click="goto(item)">{{ item.name }}</li>
       </ul>
-      <div class="userinfo">主应用的state：{{ JSON.stringify(state) }}</div>
+      <div class="userinfo">
+        <span style="padding-right:20px;">
+          主应用的state：{{ JSON.stringify(state) }}
+        </span>
+
+        <el-dropdown @command="handleCommand" v-if="state.user.auth">
+          <span class="el-dropdown-link">
+            {{state.user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="userinfo">用户信息</el-dropdown-item>
+            <el-dropdown-item divided command="logout">退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
+        <el-link href="/login" v-else>请登录</el-link>
+      </div>
     </div>
     <div id="subapp-viewport"></div>
     <router-view></router-view>
@@ -16,6 +32,7 @@
 
 <script>
 // import NProgress from 'nprogress'
+import { sdk } from 'common'
 import microApps from './micro-app'
 import store from '@/store'
 export default {
@@ -44,6 +61,19 @@ export default {
   },
   components: {},
   methods: {
+    handleCommand (type) {
+      if (type == 'logout') {
+        this.logout()
+      }
+    },
+    logout () {
+      store.setGlobalState({
+        user: { name: null, auth: false }
+      })
+      this.$router.push({
+        name: 'Login'
+      })
+    },
     goto (item) {
       // console.log(item)
       history.pushState(null, item.activeRule, item.activeRule)
@@ -121,7 +151,7 @@ html, body{
       }
       .userinfo{
         position: absolute;
-        right: 100px;
+        right: 20px;
         top: 0;
       }
     }

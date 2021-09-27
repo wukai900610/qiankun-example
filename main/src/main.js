@@ -1,4 +1,8 @@
 import Vue from 'vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/reset.css'
+import 'element-ui/lib/theme-chalk/index.css'
+
 import App from './App.vue'
 import { registerMicroApps, start, setDefaultMountApp } from 'qiankun'
 import microApps from './micro-app'
@@ -7,6 +11,8 @@ import router from './router'
 // import { api } from 'common'
 // api.xx()
 Vue.config.productionTip = false
+
+Vue.use(ElementUI)
 
 const instance = new Vue({
   router,
