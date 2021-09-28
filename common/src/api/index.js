@@ -1,5 +1,5 @@
-export default {
-    xx(){
-        console.log(123);
-    }
+import user from './module/user'
+
+export default{
+    user
 }

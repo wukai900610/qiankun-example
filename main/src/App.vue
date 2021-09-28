@@ -32,7 +32,7 @@
 
 <script>
 // import NProgress from 'nprogress'
-import { sdk } from 'common'
+import { sdk, api } from 'common'
 import microApps from './micro-app'
 import store from '@/store'
 export default {
@@ -46,6 +46,7 @@ export default {
   },
   created () {
     // this.bindCurrent()
+    this.getData()
   },
   mounted () {
     this.listenRouterChange()
@@ -61,6 +62,25 @@ export default {
   },
   components: {},
   methods: {
+    getData () {
+      api.user.findingSemester()
+      api.user.findingSemester({}, {
+        interceptors: false
+      })
+
+      api.user.marking({
+        course: '',
+        courseId: '',
+        isMarking: '',
+        isPublish: '',
+        pageNum: 1,
+        pageSize: 10,
+        semester: '1176082368113421312',
+        testName: '',
+        title: '',
+        total: 0
+      })
+    },
     handleCommand (type) {
       if (type == 'logout') {
         this.logout()

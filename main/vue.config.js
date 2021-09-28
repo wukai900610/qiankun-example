@@ -7,15 +7,15 @@ module.exports = {
         return args
       })
   },
-  devServer:{
+  devServer: {
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     },
     proxy: {
       '/api': {
         target: 'https://zh.dev.p.gfox.ltd',
-        secure: false,
-      },
+        secure: false
+      }
     }
   }
 }
