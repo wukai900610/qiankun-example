@@ -20,7 +20,7 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'https://zh.dev.p.gfox.ltd',
-        secure: false,
+        secure: false
       }
     }
   }

@@ -46,7 +46,7 @@ export default {
   },
   created () {
     // this.bindCurrent()
-    this.getData()
+    // this.getData()
   },
   mounted () {
     this.listenRouterChange()

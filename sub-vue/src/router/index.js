@@ -9,7 +9,7 @@ const routes = [
     path: '/',
     name: 'Home',
     meta: {
-      auth:true
+      auth: true
     },
     component: Home
   },
@@ -17,7 +17,7 @@ const routes = [
     path: '/about',
     name: 'About',
     meta: {
-      auth:true
+      auth: true
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

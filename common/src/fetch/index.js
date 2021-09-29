@@ -3,7 +3,6 @@ import axios from 'axios'
 
 // import Util from './util'
 import Sdk from '../sdk'
-
 const instance = axios.create({
   baseURL: '/',
   timeout: 30000,
