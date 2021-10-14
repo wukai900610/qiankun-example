@@ -31,13 +31,13 @@ const routes = [
     meta: {
     },
     component: () => import('../views/Login.vue')
-  // },
-  // {
-  //   path: '/*',
-  //   name: 'NotFound',
-  //   meta: {
-  //   },
-  //   component: () => import('../views/NotFound.vue')
+  },
+  {
+    path: '/*',
+    name: 'NotFound',
+    meta: {
+    },
+    component: () => import('../views/NotFound.vue')
   }
 ]
 
