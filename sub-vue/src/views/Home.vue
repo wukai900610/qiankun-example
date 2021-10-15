@@ -20,7 +20,9 @@ export default {
   methods: {
     getData () {
       api.user.findingSemester().then((res) => {
-        console.log(123)
+        console.log(res)
+      }).catch((e) => {
+        console.log(e)
       })
     }
   }

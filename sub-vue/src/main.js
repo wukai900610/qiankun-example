@@ -1,6 +1,10 @@
 import './public-path'
 import Vue from 'vue'
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/reset.css'
+import 'element-ui/lib/theme-chalk/index.css'
+
 import App from './App.vue'
 import routes from './router'
 import { store as commonStore, fetch } from 'common'
@@ -8,8 +12,10 @@ import store from './store'
 import VueRouter from 'vue-router'
 
 Vue.config.productionTip = false
-let VM = null
 
+Vue.use(ElementUI)
+
+let VM = null
 function render (props = {}) {
   const { container, routerBase } = props
   const router = new VueRouter({
@@ -55,7 +61,10 @@ function render (props = {}) {
     store,
     render: (h) => h(App)
   })
+
+  // 公共请求注入需要的对象
   fetch.init(router, VM)
+
   VM.$mount(container ? container.querySelector('#app') : '#app')
 }
 

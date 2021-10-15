@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 import store from '@/store'
+import microApps from '@/micro-app'
 
 Vue.use(VueRouter)
 
@@ -31,15 +32,29 @@ const routes = [
     meta: {
     },
     component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/*',
-    name: 'NotFound',
-    meta: {
-    },
-    component: () => import('../views/NotFound.vue')
   }
 ]
+
+// 临时解决显示子路由时会404方案
+microApps.map(item => {
+  routes.push({
+    path: item.activeRule,
+    name: item.name
+  })
+  routes.push({
+    path: item.activeRule + '/*',
+    name: item.name
+  })
+})
+
+const pageNotFound = {
+  path: '/*',
+  name: 'NotFound',
+  meta: {
+  },
+  component: () => import('../views/NotFound.vue')
+}
+routes.push(pageNotFound)
 
 const router = new VueRouter({
   mode: 'history',

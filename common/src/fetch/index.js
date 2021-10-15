@@ -39,21 +39,21 @@ export default {
       }
       // 走拦截
       if(data.code == 0){
-        return data
+        return data;
       }else{
         VM.$message({
           message: '接口异常',
           type: 'error'
         })
+        return Promise.reject('接口异常');
       }
     }, function (error) {
-      console.log(error);
       VM.$message({
         message: '网络异常',
         type: 'error'
       })
 
-      // return Promise.reject(error)
+      return Promise.reject(error);
     })
   },
   instance
