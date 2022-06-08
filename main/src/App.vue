@@ -1,11 +1,12 @@
 <template>
   <div class="layout-wrapper">
+      <Gcommon/>
     <div class="layout-header">
       <div class="logo">QIANKUN-EXAMPLE</div>
       <ul class="sub-apps">
         <li @click="push('/home')">home</li>
         <li @click="push('/about')">about</li>
-        <li v-for="item in microApps" :key="item.name" @click="goto(item)">{{ item.name }}</li>
+        <!-- <li v-for="item in microApps" :key="item.name" @click="goto(item)">{{ item.name }}</li> -->
       </ul>
       <div class="userinfo">
         <span style="padding-right:20px;">
@@ -32,11 +33,16 @@
 
 <script>
 // import NProgress from 'nprogress'
-import { sdk, api } from 'common'
+import { utils, api } from 'common'
 import microApps from './micro-app'
 import store from '@/store'
+
+import Gcommon from '_components/common.vue'
 export default {
   name: 'App',
+  components: {
+    Gcommon
+  },
   data () {
     return {
       isLoading: true,
@@ -47,6 +53,10 @@ export default {
   created () {
     // this.bindCurrent()
     // this.getData()
+
+    store.setGlobalState({
+      info: { name: 'asdfsdf', aa: 123 }
+    })
   },
   mounted () {
     this.listenRouterChange()
@@ -60,7 +70,6 @@ export default {
       return store.getGlobalState()
     }
   },
-  components: {},
   methods: {
     getData () {
       api.user.findingSemester()

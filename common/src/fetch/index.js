@@ -2,15 +2,15 @@ import axios from 'axios'
 // import Qs from 'qs'
 
 // import Util from './util'
-import Sdk from '../sdk'
+import utils from '../utils'
 const instance = axios.create({
   baseURL: '/',
   timeout: 30000,
   headers: {
-    // global: Sdk.getLocalData('global'),
+    // global: utils.getLocalData('global'),
     // console.log(globalData);
     // 'Content-Type': 'application/x-www-form-urlencoded',
-    'sessionID': Sdk.getCookie('_SessionToken')
+    'sessionID': utils.getCookie('_SessionToken')
   },
   responseType: 'json',
 //   transformRequest: [function (data) {
@@ -29,9 +29,17 @@ const instance = axios.create({
 export default {
   init(router, VM) {
     // console.log('init');
-    
-    instance.interceptors.response.use(function ({config,data,headers,request,status,statusText}) {
+    instance.interceptors.request.use(function (config) {
       // console.log(config);
+
+      if(config.method == 'get'){
+        config.params['_t'] = new Date().getTime();
+      }
+
+      return config
+    })
+    instance.interceptors.response.use(function ({config,data,headers,request,status,statusText}) {
+
       // 不走拦截
       if(config.config.interceptors === false){
         // console.log(config);

@@ -1,6 +1,13 @@
+const path = require('path')
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   transpileDependencies: ['common'],
   chainWebpack: config => {
+    config.resolve.alias.set('_components', resolve('./common/src/components'))
     config.plugin('html')
       .tap((args) => {
         args[0].title = 'qiankun-example'
@@ -13,7 +20,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'https://zh.dev.p.gfox.ltd',
+        target: 'http://119.3.107.118:31314', // dev
         secure: false
       }
     }

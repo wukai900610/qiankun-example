@@ -1,10 +1,10 @@
 import { initGlobalState } from 'qiankun'
 import Vue from 'vue'
-import { sdk } from 'common'
+import { utils } from 'common'
 
 // 父应用的初始state
 // Vue.observable是为了让initialState变成可响应：https://cn.vuejs.org/v2/api/#Vue-observable。
-const globalState = sdk.getLocalData('global')
+const globalState = utils.getLocalData('global')
 const initialState = Vue.observable(globalState || {
   user: {
     name: 'zhangsan'
@@ -16,7 +16,7 @@ actions.onGlobalStateChange((newState, prev) => {
   // state: 变更后的状态; prev 变更前的状态
   // console.log('main change', JSON.stringify(newState), JSON.stringify(prev))
 
-  sdk.setLocalData('global', newState)
+  utils.setLocalData('global', newState)
   for (const key in newState) {
     initialState[key] = newState[key]
   }

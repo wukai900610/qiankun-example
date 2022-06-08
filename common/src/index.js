@@ -1,11 +1,11 @@
 import store from './store'
-import sdk from './sdk'
+import utils from './utils'
 import api from './api'
 import fetch from './fetch'
 
 export {
   store,
-  sdk,
+  utils,
   api,
   fetch
 }
